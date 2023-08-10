@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  padding: 1rem 2rem 0.5rem;
+  border-bottom: 1px solid gainsboro;
+
+}
+.container3{
+  padding-bottom: 1rem;
+}
+span{
+  color: rgb(34 68 103 / 90%);
+  font-size: 1.5rem;
+  border-bottom: 2px solid rgb(34 68 103 / 66%); /* Changer la couleur de la ligne en fonction de vos besoins */
+  padding-bottom: 23px;
+}
+button{
+  Width: 175px;
+  Height: 44px;
+  background-color: rgb(34 68 103 / 66%);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
+}

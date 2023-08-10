@@ -1,0 +1,37 @@
+.logo{
+  text-align: center;
+  margin: 1rem;
+  padding-right: 3rem;
+  margin-left: 0rem;
+}
+mat-nav-list{
+  overflow: hidden;
+  width: 223px;
+}
+.mat-icon{
+  vertical-align: center;
+  margin-right: 1rem;
+}
+
+a.mat-mdc-list-item{
+  font-size: 0.8rem;
+  height: 44px;
+  margin:2rem 0.25rem;
+  padding: 5px;
+}
+a.mat-mdc-list-item:hover{
+background-color: gainsboro;
+color: beige;
+}
+a.list-item-active{
+  color: rgb(32, 104, 80);
+}
+.logo img{
+  Width :90px ;
+  Height: 91px;
+  Top:339px;
+  Left:1019px;
+  border-radius: 50px;
+  margin: auto 1rem;
+  }
+

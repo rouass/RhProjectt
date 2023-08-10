@@ -1,0 +1,33 @@
+<div class="container2">
+  <ng-container *ngIf="notifications.length; else noNotifications">
+    <table>
+      <!--<thead>
+        <tr>
+          <th>Date d'entrée</th>
+          <th>Date de sortie</th>
+          <th>Type</th>
+          <th>userId</th>
+          <th>userName</th>
+          <th></th>
+        </tr>
+      </thead>-->
+      <tbody>
+       <tr  *ngFor="let notification of notifications; let rowIndex = index">
+        <td *ngIf="!isAdmin"> <p><span>{{notification.type}}</span> de type <span>{{notification.data.type }}</span> la période de: <span>{{ notification.data.dateD | date:'dd/MM/yyyy' }}</span> à <span>{{ notification.data.dateF | date:'dd/MM/yyyy' }}</span> status <span>{{ notification.data.status }}</span></p></td>
+        <td *ngIf="isAdmin"> <p><span>{{notification.type}}</span> de type <span>{{notification.data.type }}</span> la période de: <span>{{ notification.data.dateD | date:'dd/MM/yyyy' }}</span> à <span>{{ notification.data.dateF | date:'dd/MM/yyyy' }}</span> par <span>{{ notification.data.userName}}</span></p></td>
+
+          <td><button (click)="deleteNotification(rowIndex)">Marquer <mat-icon>tick</mat-icon></button></td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+
+  <!-- Show this image when there are no notifications -->
+  <ng-template #noNotifications>
+    <div class="cc">
+<img  src="../../assets/img/bell1.png">
+    <!-- Add any text or message you want to display -->
+    <h3>Aucune notification disponible.</h3>
+  </div>
+  </ng-template>
+</div>

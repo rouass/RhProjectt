@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="container1">
+    <span>{{ getCurrentPageText() }}</span>
+  </div>
+<div class="container3" *ngIf="getCurrentPageText() !== 'Liste des congés'" style="margin: 14px;">
+</div>
+<div class="container3" *ngIf="isAdmin" style="margin: 14px;">
+</div>
+<div class="container2" *ngIf="getCurrentPageText() === 'Liste des congés'">
+  <button (click)="openCreateCongeDialog()" *ngIf="!isAdmin">
+        <mat-icon>add</mat-icon>
+        Nouveau Congé
+  </button>
+  </div>
+</div>
+

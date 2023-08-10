@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="container2">
+    <div class="filter-dropdown">
+      <!-- Type Filter -->
+      <mat-form-field>
+        <mat-label>Type Filter:</mat-label>
+        <mat-select [(ngModel)]="selectedTypeFilter">
+          <mat-option *ngFor="let option of typeFilterOptions" [value]="option.value">{{ option.label }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Status Filter -->
+      <mat-form-field>
+        <mat-label>Status Filter:</mat-label>
+        <mat-select [(ngModel)]="selectedStatusFilter">
+          <mat-option *ngFor="let option of statusFilterOptions" [value]="option.value">{{ option.label }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <table *ngIf="conges.length; else noconges">
+      <thead>
+        <tr>
+          <th>Date d'entrée</th>
+          <th>Date de sortie</th>
+          <th>Type</th>
+          <th>Cause</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let conge of conges">
+          <tr *ngIf="(!selectedTypeFilter || conge.type === selectedTypeFilter) &&
+                      (!selectedStatusFilter || conge.status === selectedStatusFilter)">
+            <!-- Table cells with conge data -->
+            <td>{{ conge.dateD | date:'dd/MM/yyyy' }}</td>
+            <td>{{ conge.dateF | date:'dd/MM/yyyy' }}</td>
+            <td>{{ conge.type }}</td>
+            <td>{{ conge.cause }}</td>
+            <td>
+              <button class="h" *ngIf="(conge.status !== 'pending' && isAdmin) || !isAdmin"
+                [ngClass]="{'status-rejected': conge.status === 'rejected', 'status-accepted': conge.status === 'accepted'}">
+                {{ conge.status }}
+              </button>
+              <div class="p1">
+                <div class="p2">
+                  <button *ngIf="isAdmin && conge.status === 'pending'" style="margin-right: 5px; color:green;"
+                    (click)="openCreateCongeDialog(conge._id , 'confirmed')"> <mat-icon>done</mat-icon></button>
+                  <button *ngIf="isAdmin && conge.status == 'pending'" style="color: red;"
+                    (click)="openCreateCongeDialog(conge._id, 'rejected')">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+                <div class="p3">
+                  <p *ngIf="showTextArea" (click)="openCreateCongeDialog(conge._id, 'rejected')">
+                    <mat-icon>add</mat-icon>explication
+                  </p>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <ng-template #noconges>
+      <div class="cc">
+        <img src="../../../assets/img/noconges.png">
+        <!-- Add any text or message you want to display -->
+        <h3>Aucun congé demandé.</h3>
+      </div>
+    </ng-template>
+  </div>
+</div>

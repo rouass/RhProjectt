@@ -1,0 +1,31 @@
+<mat-nav-list >
+  <div class="logo py-4">
+    <img src="../../assets/img/logoSw.jpg">
+  </div>
+
+  <a mat-list-item routerLink="/home"   routerLinkActive="list-item-active">
+  <mat-icon>home</mat-icon>Accueil
+  </a>
+
+    <a mat-list-item routerLink="/congeeDetails" routerLinkActive="list-item-active">
+      <mat-icon>beach_access</mat-icon>Congés
+      </a>
+      <a mat-list-item routerLink="/user" routerLinkActive="list-item-active">
+        <mat-icon>not_interested</mat-icon>Absences
+        </a>
+      <a mat-list-item routerLink="/page" routerLinkActive="list-item-active">
+        <mat-icon>schedule</mat-icon>Retards
+        </a>
+        <a mat-list-item routerLink="/user" routerLinkActive="list-item-active">
+          <mat-icon>account_circle</mat-icon>Mon Profil
+          </a>
+        <a mat-list-item routerLink="/page" routerLinkActive="list-item-active">
+          <mat-icon style="color: red;">event_available</mat-icon>Pointage
+          </a>
+          <br>
+          <br>
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>logout
+          </button>
+</mat-nav-list>

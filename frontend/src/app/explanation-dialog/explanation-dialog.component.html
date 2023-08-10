@@ -1,0 +1,10 @@
+<div mat-dialog-content>
+  <mat-form-field *ngIf="showTextArea">
+
+    <textarea matInput placeholder="Explication(si nécessaire)"[(ngModel)]="explanation"  rows="7"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClose()">Annuler</button>
+  <button mat-button color="primary" (click)="updateCongeStatus()" >Confirmer</button>
+</div>

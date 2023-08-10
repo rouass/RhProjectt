@@ -1,0 +1,9 @@
+.container{
+  justify-content: space-between;
+  width:100%;
+
+}
+.containerr{
+  display: flex;
+  flex-direction: row;
+}

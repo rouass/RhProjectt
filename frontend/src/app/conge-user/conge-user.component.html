@@ -1,0 +1,24 @@
+<div class="container">
+  <mat-drawer-container>
+    <mat-drawer mode="side" opened="true">
+      <ng-container *ngIf="isAdmin; else userSidenav">
+        <app-admin-sidenav></app-admin-sidenav>
+      </ng-container>
+
+      <ng-template #userSidenav>
+        <app-side-nav></app-side-nav>
+      </ng-template>
+      <!--<app-side-nav>
+      </app-side-nav>-->
+    </mat-drawer>
+
+    <mat-drawer-content>
+      <app-nav-header></app-nav-header>
+      <app-nav-conge></app-nav-conge>
+
+      <div class="containerr">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

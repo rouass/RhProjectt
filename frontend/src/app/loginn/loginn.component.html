@@ -1,0 +1,29 @@
+<div class="container">
+<mat-card>
+  <mat-card-content>
+    <div class="header">
+      <div class="headerLogo">
+      <img src="../../assets/img/logoSw.jpg"></div>
+            <h1>Login</h1>
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="name-input">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label><mat-icon>person</mat-icon>            Name</mat-label>
+          <input formControlName="name" type="text" matInput required>
+        </mat-form-field>
+      </div>
+      <div class="name-input">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label><mat-icon>lock</mat-icon>  Password</mat-label>
+          <input formControlName="password" type="{{ hide ? 'password' : 'text' }}" matInput required>
+        </mat-form-field>
+      </div>
+      <button mat-flat-button color="primary" type="submit">Login</button>
+    </form>
+    <div *ngIf="loginError" class="error-message">
+      {{ loginError }}
+    </div>
+  </mat-card-content>
+</mat-card>
+</div>

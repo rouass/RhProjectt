@@ -1,0 +1,21 @@
+mat-card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+mat-form-field input {
+  width: 100%;
+  height: 55px;
+  border: white;
+  padding: 0.25rem;
+  border-bottom: black 1px solid;}
+  .label-up {
+    transform: translateY(-1.5em) scale(0.75);
+  }
+.container{
+  width: 628px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin: 2rem auto;
+
+}
