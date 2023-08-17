@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="container-header">
+      <p> started at <span>10:29</span></p>
+      <p>august 12, 2023</p>
+  </div>
+  <div class="container2">
+    <div class="container0">
+      <p>{{ currentTime | date:'HH:mm:ss ' }} h </p>
+    </div>
+      <div class="container21">
+        <button *ngIf="!trackingStarted" class="button"  (click)="startTracking()" >Start</button>
+      <div *ngIf="trackingStarted" >
+          <button class="button btn-clock"  >Clock Out</button>
+          <button class="button btn-break" (click) ="pauseTracking()">Take a Break</button>
+        </div>
+
+
+        <div class="select-container" *ngIf="!trackingStarted" >
+          <div class="select">
+            <select>
+              <option value="1">Début du travail</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="select-container"  *ngIf="trackingStarted">
+
+        </div>
+
+
+
+      </div>
+</div>
+  <div class="pointageList">
+    <div class="pointageHeader">
+      <p>today</p>
+      <p>Total time <span>1:24:48h</span></p>
+    </div>
+
+
+    <table class="pointageTable" *ngFor="let pointage of pointages">
+      <tr class="tr">
+        <td>
+          <strong>Clock in</strong>
+          {{pointage.dateDP}}
+        </td>
+        <td>
+          <strong>Clock out</strong>
+          --
+        </td>
+        <td>
+
+          <br>
+          0:05:36
+        </td>
+      </tr>
+      <br>
+    </table>
+
+
+
+
+  </div>
+</div>
+
+
+    <!--
+    <div class="container21">
+      <div class="container22">
+        <button>Clock out</button>
+        <button> Take a break</button>
+      </div>
+      <div class="container23">
+        <label>type</label>
+        <select>Fin Travail</select>
+        <select>Pause</select>
+        <select>Autorisation</select>
+      </div>
+    </div>
+  </div>-->

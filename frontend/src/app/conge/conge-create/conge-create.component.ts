@@ -14,7 +14,6 @@ export class CongeCreateComponent {
   congeId:string |null= null ;
   constructor(private route: ActivatedRoute , public dialogRef: MatDialogRef<CongeCreateComponent>) {}
   ngOnInit(): void {
-    // Get the user ID from the route parameters
     this.userId = this.route.snapshot.paramMap.get('userId');
 
   }
@@ -22,7 +21,7 @@ export class CongeCreateComponent {
 
   conge: Conge = new Conge();
   errorMessage: string ='';
-  isButtonDisabled: boolean = true; // Initialize to true
+  isButtonDisabled: boolean = true;
 
   veriferDate(){
   }
@@ -57,7 +56,6 @@ AddConge(congeForm: NgForm) {
   const differenceDays = Math.floor(differenceMs / (1000 * 60 * 60 * 24));
   console.log(differenceDays);
 
-  // Include the token in the request headers
   const token = localStorage.getItem('token');
   const config = {
     headers: {
@@ -68,18 +66,17 @@ AddConge(congeForm: NgForm) {
 
   axios.post('http://127.0.0.1:8000/conge/ajouter', congeObj, config)
     .then(response => {
-      console.log(response.data); // You can do something with the response here
+      console.log(response.data);
       this.congeId= response.data.createdConge._id ;
     })
     .catch(error => {
-      console.log(error); // You can do something with the error here
+      console.log(error);
     });
 
   console.log(this.conge.dateD);
-  congeForm.resetForm(); // Reset the form after adding the congé
+  congeForm.resetForm();
 }
 closePopup(): void {
-  // Close the dialog
   this.dialogRef.close();
 }
 

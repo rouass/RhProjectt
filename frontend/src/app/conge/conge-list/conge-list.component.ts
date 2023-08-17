@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit , ViewChild } from '@angular/core';
 import axios from 'axios';
 import { Conge } from '../conge.model';
 import { ExplanationDialogComponent } from 'src/app/explanation-dialog/explanation-dialog.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-
-
+import { PageEvent } from '@angular/material/paginator'; // Import PageEvent
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-conge-list',
   templateUrl: './conge-list.component.html',
@@ -14,6 +15,12 @@ export class CongeListComponent implements OnInit, OnDestroy {
   isAdmin: boolean = false;
    showTextArea = false;
   conges: Conge[] = [];
+  pageSize =5; // Number of items per page
+  page = 1; // Current page
+  length : number =0 ;
+  displayedConges: Conge[] = [];
+  dataSource: MatTableDataSource<Conge> = new MatTableDataSource<Conge>();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   typeFilterOptions: any[] = [
     { label: 'All Types', value: '' },
@@ -22,7 +29,7 @@ export class CongeListComponent implements OnInit, OnDestroy {
     { label: 'Congés sans solde', value: 'Congés sans solde' },
     { label: 'Congés de maternité', value: 'Congés de maternité' },
 
-    // Add more type options as needed
+
   ];
 
   statusFilterOptions: any[] = [
@@ -32,15 +39,15 @@ export class CongeListComponent implements OnInit, OnDestroy {
     { label: 'Rejected', value: 'rejected' },
   ];
 
-  selectedTypeFilter: string = ''; // Holds the selected type filter value
-  selectedStatusFilter: string = ''; // Holds the selected status filter value
+  selectedTypeFilter: string = '';
+  selectedStatusFilter: string = '';
 
   constructor(private dialog: MatDialog) {}
   /*onIsParagraphVisible(value: boolean) {
     this.showTextArea = value;}*/
 
     openCreateCongeDialog(congeId: string, status: string): void {
-      let showTextArea = status === 'rejected'; // Set showTextArea based on the status
+      let showTextArea = status === 'rejected';
 
       const dialogRef = this.dialog.open(ExplanationDialogComponent, {
         data: { showTextArea, congeId, status },
@@ -48,7 +55,6 @@ export class CongeListComponent implements OnInit, OnDestroy {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        // Optionally handle any logic after the dialog is closed
       });
     }
 
@@ -56,6 +62,12 @@ export class CongeListComponent implements OnInit, OnDestroy {
        this.isAdmin = localStorage.getItem('isAdmin') === 'true';
     console.log("isAdmin :" + this.isAdmin);
     this.getCongeList();
+    this.dataSource.data = this.conges;
+    this.dataSource.paginator = this.paginator;
+      this.updateDisplayedConges();
+
+      /*this.length= this.conges.length;
+      console.log(this.length);*/
   }
 
   ngOnDestroy() {}
@@ -63,19 +75,42 @@ export class CongeListComponent implements OnInit, OnDestroy {
 
 
   getCongeList() {
-    const token = localStorage.getItem('token'); // Get the token from localStorage or wherever you stored it
+    const token = localStorage.getItem('token');
     axios
-      .get('http://127.0.0.1:8000/conge/lister', {
-        headers: {
-          Authorization: `Bearer ${token}`, // Include the token in the 'Authorization' header
-        },
-      })
-      .then(response => {
-        console.log(response.data.conges);
-        this.conges = response.data.conges;
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    .get('http://127.0.0.1:8000/conge/lister', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(response => {
+      this.conges = response.data.conges;
+      this.length = this.conges.length;
+
+      this.dataSource.data = this.conges;
+
+      this.updateDisplayedConges();
+    })
+    .catch(error => {
+      console.log(error);
+    });
+
+
   }
+
+  handlePageEvent(event: PageEvent): void {
+    this.page = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.updateDisplayedConges();
+  }
+
+
+
+  updateDisplayedConges() {
+    const startIndex = (this.page - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    console.log(`startIndex: ${startIndex}, endIndex: ${endIndex}`);
+    this.displayedConges = this.conges.slice(startIndex, endIndex);
+  }
+
+
 }

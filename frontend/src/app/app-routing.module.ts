@@ -6,7 +6,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { AuthGuard } from './auth.guard';
 import { LoginLayoutComponent } from './login-layout/login-layout.component';
 import { CongeListComponent } from './conge/conge-list/conge-list.component';
-
+import { TrackingUserComponent } from './tracking-user/tracking-user.component';
 const routes: Routes = [
    { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
@@ -21,6 +21,8 @@ const routes: Routes = [
     children: [
       { path: 'congeeDetails', component: CongeListComponent},
       { path: 'notification', component: NotificationComponent },
+      { path: 'pointage', component: TrackingUserComponent },
+
     ],
   },
 

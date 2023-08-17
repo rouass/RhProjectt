@@ -1,0 +1,160 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container{
+  width: 628px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin: 2rem auto;
+  align-items: center;
+  height: 500px;
+  margin: 2rem 15rem;
+
+}
+.container-header{
+color :#A8A196;
+font-size: 1.1rem;
+display: flex;
+justify-content: center;
+}
+.container-header span{
+  color:  #394867 ;
+  font-weight: 400 ;
+}
+.container-header p {
+  margin: 1rem;
+}
+.container2 {
+  align-items: center;
+}
+.container0 p {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #002B5B;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.container21 {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 2rem;
+  padding-bottom: 1.75rem;
+
+  border-bottom: 1px solid gainsboro;
+}
+.pointageHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.pointageHeader p {
+  margin: 2rem 2rem 0.75rem;
+  color: #a4aeba;
+}
+.tr{
+  background-color: #f6f6f6 ;
+  box-shadow: 0 2px 4px rgba(161, 158, 158, 0.2);
+  margin: 1rem;
+  border: #eef0f2 solid 2px;
+}
+
+.pointageTable {
+  width: 93%;
+    border-collapse: collapse;
+    margin: auto 1.5rem;
+}
+
+.pointageTable tr td {
+  padding: 8px;
+  text-align: center;
+}
+
+.pointageTable tr td strong {
+  display: block;
+}
+
+/* Add this rule to remove borders between cells */
+.pointageTable tr td:not(:last-child) {
+  border-right: none;
+}
+
+
+
+
+
+.select-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 39px;
+}
+
+
+
+
+select {
+  appearance: none;
+  border: 0;
+  box-shadow: none;
+  flex: 1;
+  padding: 0 1em;
+  color: #181616;
+  background-color: gainsboro;
+  cursor: pointer;
+}
+.select {
+  display: flex;
+  border-radius: .25em;
+  overflow: hidden;
+}
+.select::after {
+  content: '\25BC';
+  top: 0;
+  right: 0;
+  padding: 0.8em;
+  background-color: #34495e;
+  transition: .25s all ease;
+  pointer-events: none;
+}
+/* Transition */
+.select:hover::after {
+  color: #c4bcaf;
+}
+
+
+
+
+
+
+
+
+.button {
+  background: linear-gradient(-180deg, #00D775, #00BD68);
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+  color: #FFFFFF;
+  cursor: pointer;
+  height: 40px;
+  padding: 0 20px;
+  text-align: center;
+  z-index: 9;
+  border: 0;
+  width: 110px;
+  font-weight: bolder;
+}
+button.button.btn-clock{
+  background: #ffa451 ;
+  margin-right: 1rem;
+}
+.button.btn-break{
+  background: #f6f6f6;
+  color: #34495e;
+  border:#34495e solid 1px ;
+  width: 135px;
+  height: 35px;
+}
+
+

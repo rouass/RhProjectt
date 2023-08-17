@@ -24,19 +24,18 @@ export class NavCongeComponent {
     } else if (currentPath === '/notification') {
       return 'Liste de notifications';
     } else {
-      return 'Default Text'; // Set a default text if the path doesn't match any of the above
+      return 'Default Text';
     }
   }
 
   openCreateCongeDialog(): void {
     const dialogRef = this.dialog.open(CongeCreateComponent, {
-      width: '500px', // Vous pouvez ajuster la largeur du popup ici
-      disableClose: true, // Empêche l'utilisateur de fermer le popup en cliquant en dehors
-      data: {} // Vous pouvez passer des données au composant de création de congé si nécessaire
+      width: '500px',
+      disableClose: true,
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // Ici, vous pouvez effectuer des actions après que le popup est fermé, si nécessaire
     });
   }
 

@@ -1,15 +1,12 @@
 <div class="container">
   <div class="container2">
     <div class="filter-dropdown">
-      <!-- Type Filter -->
       <mat-form-field>
         <mat-label>Type Filter:</mat-label>
         <mat-select [(ngModel)]="selectedTypeFilter">
           <mat-option *ngFor="let option of typeFilterOptions" [value]="option.value">{{ option.label }}</mat-option>
         </mat-select>
       </mat-form-field>
-
-      <!-- Status Filter -->
       <mat-form-field>
         <mat-label>Status Filter:</mat-label>
         <mat-select [(ngModel)]="selectedStatusFilter">
@@ -17,7 +14,6 @@
         </mat-select>
       </mat-form-field>
     </div>
-
     <table *ngIf="conges.length; else noconges">
       <thead>
         <tr>
@@ -30,10 +26,9 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let conge of conges">
+        <ng-container *ngFor="let conge of displayedConges">
           <tr *ngIf="(!selectedTypeFilter || conge.type === selectedTypeFilter) &&
                       (!selectedStatusFilter || conge.status === selectedStatusFilter)">
-            <!-- Table cells with conge data -->
             <td>{{ conge.dateD | date:'dd/MM/yyyy' }}</td>
             <td>{{ conge.dateF | date:'dd/MM/yyyy' }}</td>
             <td>{{ conge.type }}</td>
@@ -60,13 +55,21 @@
               </div>
             </td>
           </tr>
+
         </ng-container>
       </tbody>
+
     </table>
+    <mat-paginator
+    [length]="length"
+    [pageSize]="pageSize"
+    [pageIndex]="page - 1"
+    (page)="handlePageEvent($event)"
+    aria-label="Select page"
+  ></mat-paginator>
     <ng-template #noconges>
       <div class="cc">
         <img src="../../../assets/img/noconges.png">
-        <!-- Add any text or message you want to display -->
         <h3>Aucun congé demandé.</h3>
       </div>
     </ng-template>

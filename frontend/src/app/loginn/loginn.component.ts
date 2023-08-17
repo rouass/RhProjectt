@@ -13,10 +13,9 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 })
 export class LoginnComponent implements OnInit {
   loginForm!: FormGroup;
-  loginError: string = ''; // Initialize to an empty string
-  hide: boolean = true; // Add this property to toggle password visibility
-  userId: string | null = null; // Initialize with null, and it will be set on successful login
-
+  loginError: string = '';
+  hide: boolean = true;
+  userId: string | null = null; 
   constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar,private dataSharingService: dataSharingService) {}
 
   ngOnInit() {

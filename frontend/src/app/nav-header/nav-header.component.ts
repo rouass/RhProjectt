@@ -23,9 +23,7 @@ export class NavHeaderComponent implements OnInit {
     this.router.navigate(['/notification']);
   }
   ngOnInit() {
-    // Example: Get data in HeaderComponent
     this.userName = this.dataSharingService.getUserName();
-      // Get the user's ID from localStorage or your authentication service
       const userId = localStorage.getItem('userId');
     console.log("user id mn nav header" + userId);
 

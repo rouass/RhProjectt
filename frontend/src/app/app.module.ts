@@ -30,8 +30,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AuthGuard } from './auth.guard';
 import { MatSelectModule } from '@angular/material/select'; // Make sure to import from 'select' instead of 'mat-select'
 import { MatFormFieldModule } from '@angular/material/form-field';
-
-
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 
 import { CongeUserComponent } from './conge-user/conge-user.component';
 import { LoginComponent } from './login/login.component';
@@ -43,6 +43,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { NotificationComponent } from './notification/notification.component';
 import { LoginLayoutComponent } from './login-layout/login-layout.component';
 import { ExplanationDialogComponent } from './explanation-dialog/explanation-dialog.component';
+import { TrackingUserComponent } from './tracking-user/tracking-user.component';
 
 
 
@@ -63,6 +64,7 @@ import { ExplanationDialogComponent } from './explanation-dialog/explanation-dia
     NotificationComponent,
     LoginLayoutComponent,
     ExplanationDialogComponent,
+    TrackingUserComponent,
 
   ],
   imports: [
@@ -88,6 +90,8 @@ import { ExplanationDialogComponent } from './explanation-dialog/explanation-dia
     MatBadgeModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatPaginatorModule,
+    
   ],
   providers: [AuthGuard, dataSharingService],
   bootstrap: [AppComponent]

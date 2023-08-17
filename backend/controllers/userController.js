@@ -27,22 +27,17 @@ exports.login = async (req, res) => {
       { expiresIn: '60m' }
     );
 
-    // Log the token (don't log sensitive data in production)
     console.log("Token: " + token);
 
-    // To access the username, verify the token
     jwt.verify(token, 'p123', (err, decodedToken) => {
       if (err) {
-        // Handle verification error
         console.log('Token verification error:', err.message);
         return;
       }
 
-      // Access the username from the decodedToken
       console.log('id from token: ' + decodedToken.user.id);
     });
 
-    // Include the _id in the response
     res.status(200).send({ message: 'Login Success', success: true, token, isAdmin: user.isAdmin, _id: user._id });
   } catch (error) {
     console.log(error);
@@ -107,15 +102,12 @@ exports.deleteNotification = async (req, res) => {
 };
 
 exports.listerEmployee =(req , res)=>{
-   // Check if the authorization header is present
    if (!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) {
     return res.status(401).json({ success: false, message: 'Unauthorized: Invalid token format' });
   }
 
-  // Extract token from the Authorization header
   const token = req.headers.authorization.split(' ')[1];
-  // Verify the token using your secret key
-  const decodedToken = jwt.verify(token, 'p123'); // Replace 'your_secret_key' with the actual secret key used to sign the token
+  const decodedToken = jwt.verify(token, 'p123'); 
   const isAdmin = decodedToken.user.isAdmin ;
 if(isAdmin){
   userModel.find().exec() 

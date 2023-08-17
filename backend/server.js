@@ -4,12 +4,14 @@ const mongoose = require("mongoose");
 const app = express();
 const congeRouter = require('./routes/congeRouter');
 const userRouter = require('./routes/userRoutes');
+const pointageRouter = require('./routes/pointageRouter');
 
 app.use(express.json());
 app.use(cors());
 
 app.use('/conge', congeRouter)
 app.use('/user' , userRouter)
+app.use('/pointage',pointageRouter);
 
 // Connexion à la base de données
 mongoose.connect('mongodb://127.0.0.1:27017/stage', {

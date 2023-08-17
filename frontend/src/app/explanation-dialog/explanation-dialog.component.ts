@@ -7,10 +7,10 @@ import axios from 'axios';
   templateUrl: './explanation-dialog.component.html',
 })
 export class ExplanationDialogComponent {
-  public showTextArea: boolean; // Make the property public
-  public congeId: string; // Declare the congeId property
+  public showTextArea: boolean;
+  public congeId: string;
   public status: string;
-  public explanation: string = ''; // Declare and initialize the explanation property
+  public explanation: string = '';
 
   @Output() isParagraphVisibleChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -20,14 +20,14 @@ export class ExplanationDialogComponent {
     public dialogRef: MatDialogRef<ExplanationDialogComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.showTextArea = data?.showTextArea || false; // Initialize showTextArea from the data passed to the dialog
-    this.congeId = data?.congeId || ''; // Initialize congeId from the data passed to the dialog
+    this.showTextArea = data?.showTextArea || false;
+    this.congeId = data?.congeId || '';
     this.status = data?.status || '';
   }
 
   onClose(): void {
-    this.dialogRef.close(); // Close the dialog when "Annuler" is clicked
-    this.isParagraphVisibleChanged.emit(false); // Emit event to set isParagraphVisible to false
+    this.dialogRef.close();
+    this.isParagraphVisibleChanged.emit(false);
   }
 
 

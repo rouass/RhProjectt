@@ -13,7 +13,7 @@ export class NotificationComponent implements OnInit {
   isAdmin: boolean = false;
 
 
-  userId: string | null = null; // Initialize with null, and it will be set on successful login
+  userId: string | null = null;
   @Output() notificationsChanged = new EventEmitter<number>();
 
   constructor(private http: HttpClient) { }
@@ -49,29 +49,22 @@ export class NotificationComponent implements OnInit {
 
 
   deleteNotification(rowIndex: number) {
-      // Assuming 'rowIndex' is the index of the notification in the 'notifications' array
-      const notificationId = rowIndex // Assuming each notification object has an '_id' property
-
-      // Get the authentication token from where it is stored (e.g., local storage, cookies, etc.)
-      const token = localStorage.getItem('token'); // Get the token from localStorage or wherever you stored it
+      const notificationId = rowIndex
+      const token = localStorage.getItem('token');
 
       axios.delete(`http://127.0.0.1:8000/user/deleteNotification/${notificationId}`, {
         headers: {
-          Authorization: `Bearer ${token}`, // Include the token in the 'Authorization' header
+          Authorization: `Bearer ${token}`, 
         },
       })
       .then((response: any) => {
           if (response.data.success) {
-              // Notification deleted successfully
               this.notifications.splice(rowIndex, 1);
-    // Emit the event with the updated length:
     this.notificationsChanged.emit(this.notifications.length);
           }
       })
       .catch((error: any) => {
           console.log(error);
-          // Handle the error
-          // You might want to show an error message or perform other actions here
       });
   }
 

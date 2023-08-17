@@ -6,11 +6,11 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   email: {
-    type: String, // Corrected 'string' to 'String'
+    type: String, 
     required: true,
   },
   password: {
-    type: String, // Corrected 'string' to 'String'
+    type: String,
     required: true,
   },
   isAdmin:{
