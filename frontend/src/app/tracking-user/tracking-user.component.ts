@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Pointage } from './pointage.model';
 import axios from 'axios';
-
+import { Observable, interval } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-tracking-user',
@@ -10,22 +12,75 @@ import axios from 'axios';
   styleUrls: ['./tracking-user.component.css']
 })
 export class TrackingUserComponent implements OnInit {
-  currentTime: Date = new Date();
-  constructor(private http: HttpClient) {}
+  currentTime$: Observable<Date> = interval(1000).pipe(
+    map(() => new Date())
+  );
 
-  trackingStarted: boolean = false;
+  constructor(private http: HttpClient , private datePipe: DatePipe) {}
+
+  trackingStarted!: boolean ;
   showClockOutSelect: boolean = false;
   showTakeBreakSelect: boolean = false;
   pointages: Pointage[] = [];
 
+  calculateTimeDifference(heureFP: string, heureDP: string): string {
+    const [hoursDP, minutesDP, secondsDP] = heureDP.split(':').map(Number);
+if(heureFP ===""){
+ const now = new Date();
+ const hoursNow = this.addLeadingZero(now.getHours());
+ const minutesNow = this.addLeadingZero(now.getMinutes());
+ const secondsNow = this.addLeadingZero(now.getSeconds());
+
+ heureFP = `${hoursNow}:${minutesNow}:${secondsNow}`;
+
+}
+    const [hoursFP, minutesFP, secondsFP] = heureFP.split(':').map(Number);
+    const dateDP = new Date();
+    dateDP.setHours(hoursDP, minutesDP, secondsDP);
+    const dateFP = new Date();
+    dateFP.setHours(hoursFP, minutesFP, secondsFP);
+    const timeDifferenceMs = dateFP.getTime() - dateDP.getTime();
+
+    const hoursDiff = Math.floor(timeDifferenceMs / 3600000);
+    const minutesDiff = Math.floor((timeDifferenceMs % 3600000) / 60000);
+    const secondsDiff = Math.floor((timeDifferenceMs % 60000) / 1000);
+
+    const formattedHours = this.addLeadingZero(hoursDiff);
+    const formattedMinutes = this.addLeadingZero(minutesDiff);
+    const formattedSeconds = this.addLeadingZero(secondsDiff);
+
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+}
+
+addLeadingZero(value: number): string {
+    return value.toString().padStart(2, '0');
+}
+
+
+
+
+
+
+
+
   ngOnInit() {
     this.getPointageList();
+    console.log(this.pointages);
+    console.log("oninit: " + this.trackingStarted);
+    this.trackingStarted = this.getTrackingStartedFromLocalStorage();
 
+    this.currentTime$ = interval(1000).pipe(
+      map(() => new Date())
+    );
   }
 
-  private addLeadingZero(value: number): string {
-    return value < 10 ? `0${value}` : value.toString();
+  getTrackingStartedFromLocalStorage(): boolean {
+    const trackingStartedStored = localStorage.getItem('trackingStarted');
+    return trackingStartedStored === 'true';
   }
+
+
+
 
   pauseTracking(){
     try{
@@ -53,7 +108,9 @@ export class TrackingUserComponent implements OnInit {
     this.http.post('http://127.0.0.1:8000/pointage/modifier', pointageObjPause, { headers })
     .subscribe(
       (response: any) => {
-        console.log('hii');
+        this.trackingStarted = false;
+        localStorage.setItem('trackingStarted', 'false');
+        console.log("starts tracking: " + this.trackingStarted);
         console.log(response);
       },
       (error: any) => {
@@ -70,11 +127,10 @@ export class TrackingUserComponent implements OnInit {
 
   startTracking() {
     try {
-      this.trackingStarted = true;
       this.showClockOutSelect = false;
       this.showTakeBreakSelect = false;
-      const currentDate: Date = new Date();
 
+      const currentDate: Date = new Date();
       const hours: number = currentDate.getHours();
       const minutes: number = currentDate.getMinutes();
       const seconds: number = currentDate.getSeconds();
@@ -98,10 +154,20 @@ export class TrackingUserComponent implements OnInit {
         .subscribe(
           (response: any) => {
             console.log(response);
+            if (response.success) {
+              this.trackingStarted = true;
+              localStorage.setItem('trackingStarted', 'true');
+              console.log("starts tracking: " + this.trackingStarted);
+              console.log('Pointage created successfully');}
+               else {
+              this.trackingStarted = false;
+              localStorage.setItem('trackingStarted', 'false'); // Store in localStorage
+
+              console.log('Pointage creation failed:', response.error);
+            }
           },
           (error: any) => {
             console.log('Error making HTTP request:', error);
-           
           }
         );
     } catch (error) {
@@ -111,21 +177,29 @@ export class TrackingUserComponent implements OnInit {
 
   getPointageList(){
 
-      const token = localStorage.getItem('token');
-      axios.get('http://127.0.0.1:8000/conge/lister', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(response => {
-        this.pointages = response.data.conges;
-        console.log(this.pointages);
+    const token = localStorage.getItem('token');
+    axios.get('http://127.0.0.1:8000/pointage/lister', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(response => {
+      console.log(response);
 
-      })
-      .catch(error => {
-        console.log(error);
-      });
+      this.pointages = response.data.pointages;
+      console.log(this.pointages);
+
+    })
+    .catch(error => {
+      console.log(error);
+    });
 
 
-    }
   }
+}
+
+
+
+
+
+

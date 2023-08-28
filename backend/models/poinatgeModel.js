@@ -23,7 +23,11 @@ userId:{
     type:String,
     required: true
 },
-
+/*status:{
+    type:Boolean,
+    required:true , 
+    default: false 
+}*/
 
 });
 const pointageModel = mongoose.model("pointages", pointageSchema);

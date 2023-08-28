@@ -5,11 +5,11 @@
   </div>
   <div class="container2">
     <div class="container0">
-      <p>{{ currentTime | date:'HH:mm:ss ' }} h </p>
+      <p>{{ currentTime$ | async | date:'HH:mm:ss  ' }} </p>
     </div>
       <div class="container21">
-        <button *ngIf="!trackingStarted" class="button"  (click)="startTracking()" >Start</button>
-      <div *ngIf="trackingStarted" >
+        <button *ngIf="!getTrackingStartedFromLocalStorage()" class="button"  (click)="startTracking()" >Start</button>
+      <div *ngIf="getTrackingStartedFromLocalStorage()" >
           <button class="button btn-clock"  >Clock Out</button>
           <button class="button btn-break" (click) ="pauseTracking()">Take a Break</button>
         </div>
@@ -38,20 +38,20 @@
     </div>
 
 
-    <table class="pointageTable" *ngFor="let pointage of pointages">
+    <table class="pointageTable"  *ngFor="let pointage of pointages.reverse()">
       <tr class="tr">
         <td>
           <strong>Clock in</strong>
-          {{pointage.dateDP}}
+          {{pointage.heureDP}}
         </td>
         <td>
           <strong>Clock out</strong>
-          --
+         <p> {{pointage.heureFP}} </p>
         </td>
         <td>
 
           <br>
-          0:05:36
+          {{ calculateTimeDifference((pointage.heureFP ?? '').toString(), (pointage.heureDP ?? '').toString()) }}h
         </td>
       </tr>
       <br>

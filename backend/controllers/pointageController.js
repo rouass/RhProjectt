@@ -19,7 +19,6 @@ exports.listerPointage = (req , res)=>{
   .catch(error => {
     res.status(400).json({ error });
   });}
-
   
 
 exports.modifyPointage = async (req, res) => {
@@ -44,7 +43,7 @@ exports.modifyPointage = async (req, res) => {
 
     console.log('Updated Pointage Record:', pointageRecord);
 
-    res.status(200).json({ success: true, data: pointageRecord });
+    res.status(201).json({ success: true, data: pointageRecord });
   } catch (error) {
     console.error('Error updating pointage record:', error);
     res.status(500).json({ error: 'An error occurred' });
@@ -55,26 +54,27 @@ exports.modifyPointage = async (req, res) => {
 
 exports.createPointage = async (req, res) => {
   try {
- if (!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) {
-  return res.status(401).json({ success: false, message: 'Unauthorized: Invalid token format' });
-}
-const token = req.headers.authorization.split(' ')[1];
-const decodedToken = jwt.verify(token, 'p123'); 
+    if (!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) {
+      return res.status(401).json({ success: false, message: 'Unauthorized: Invalid token format' });
+    }
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, 'p123'); 
 
-      const newPointage = new pointage({
-        type: req.body.type,
-        heureDP: req.body.heureDP , 
-        heureDF: null ,
-        date : req.body.date,
-        userId: decodedToken.user.id ,
-      });
-     
+    const newPointage = new pointage({
+      type: req.body.type,
+      heureDP: req.body.heureDP,
+      heureDF: null,
+      date: req.body.date,
+      userId: decodedToken.user.id,
+    });
+
     await pointageModel.create(newPointage);
     await newPointage.save();
 
-    res.status(201).json({ message: 'Pointage created successfully' });
+    res.status(200).json({ success: true, message: 'Pointage created successfully' });
   } catch (error) {
     console.error('Error creating pointage:', error);
-    res.status(500).json({ error: 'An error occurred' });
+    res.status(500).json({ success: false, error: 'An error occurred' });
   }
 };
+

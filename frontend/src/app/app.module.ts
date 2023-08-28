@@ -46,6 +46,9 @@ import { ExplanationDialogComponent } from './explanation-dialog/explanation-dia
 import { TrackingUserComponent } from './tracking-user/tracking-user.component';
 
 
+import { DatePipe } from '@angular/common';
+import { BrrtimeComponent } from './brrtime/brrtime.component';
+import { FormatTimePipe } from './format-time.pipe';
 
 @NgModule({
   declarations: [
@@ -65,7 +68,8 @@ import { TrackingUserComponent } from './tracking-user/tracking-user.component';
     LoginLayoutComponent,
     ExplanationDialogComponent,
     TrackingUserComponent,
-
+    BrrtimeComponent,
+    FormatTimePipe
   ],
   imports: [
     BrowserModule,
@@ -91,9 +95,8 @@ import { TrackingUserComponent } from './tracking-user/tracking-user.component';
     MatSelectModule,
     MatFormFieldModule,
     MatPaginatorModule,
-    
   ],
-  providers: [AuthGuard, dataSharingService],
+  providers: [AuthGuard, dataSharingService , DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
