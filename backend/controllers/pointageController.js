@@ -4,7 +4,7 @@ const pointage = require('../models/poinatgeModel');
 const pointageModel = require('../models/poinatgeModel');
 const jwt = require('jsonwebtoken');
 
-exports.listerPointage = (req , res)=>{
+exports.listerPointage = (req, res) => {
   if (!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) {
     return res.status(401).json({ success: false, message: 'Unauthorized: Invalid token format' });
   }
@@ -12,13 +12,20 @@ exports.listerPointage = (req , res)=>{
   const token = req.headers.authorization.split(' ')[1];
   const decodedToken = jwt.verify(token, 'p123');
   const userId = decodedToken.user.id;
-  pointageModel.find({userId}).exec()
-  .then(pointages => {
-    res.status(200).json({ pointages});
-  })
-  .catch(error => {
-    res.status(400).json({ error });
-  });}
+
+  const currentDate = new Date().toLocaleDateString('en-GB'); 
+
+  pointageModel
+    .find({ userId, date: currentDate }) 
+    .exec()
+    .then(pointages => {
+      res.status(200).json({ pointages });
+    })
+    .catch(error => {
+      res.status(400).json({ error });
+    });
+};
+
   
 
 exports.modifyPointage = async (req, res) => {
@@ -66,6 +73,7 @@ exports.createPointage = async (req, res) => {
       heureDF: null,
       date: req.body.date,
       userId: decodedToken.user.id,
+      numFois: req.body.numFois ,
     });
 
     await pointageModel.create(newPointage);
@@ -77,4 +85,25 @@ exports.createPointage = async (req, res) => {
     res.status(500).json({ success: false, error: 'An error occurred' });
   }
 };
+
+
+exports.listerFirstPointage = async(req, res)=>{
+  if (!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) {
+    return res.status(401).json({ success: false, message: 'Unauthorized: Invalid token format' });
+  }
+
+  const token = req.headers.authorization.split(' ')[1];
+  const decodedToken = jwt.verify(token, 'p123');
+  const userId = decodedToken.user.id;
+  const currentDate = new Date().toLocaleDateString('en-GB');
+  pointageModel
+  .find({ userId,  numFois: 0 ,  date: currentDate  }) 
+  .exec()
+  .then(pointages => {
+    res.status(200).json({ pointages });
+  })
+  .catch(error => {
+    res.status(400).json({ error });
+  });
+}
 

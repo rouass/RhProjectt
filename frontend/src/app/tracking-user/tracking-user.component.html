@@ -1,27 +1,29 @@
 <div class="container">
   <div class="container-header">
-      <p> started at <span>10:29</span></p>
-      <p>august 12, 2023</p>
-  </div>
+    <p *ngIf="firstPoinatge && firstPoinatge.length > 0">Started at <span>{{ firstPoinatge[0].heureDP }}</span></p>
+    <p>{{ currentDate }}</p>
+    </div>
   <div class="container2">
     <div class="container0">
-      <p>{{ currentTime$ | async | date:'HH:mm:ss  ' }} </p>
+
+      <p>{{ currentTime$ | async | date:'HH:mm:ss  '}} </p>
     </div>
       <div class="container21">
         <button *ngIf="!getTrackingStartedFromLocalStorage()" class="button"  (click)="startTracking()" >Start</button>
+
       <div *ngIf="getTrackingStartedFromLocalStorage()" >
-          <button class="button btn-clock"  >Clock Out</button>
-          <button class="button btn-break" (click) ="pauseTracking()">Take a Break</button>
+          <button class="button btn-clock"   (click) ="pauseTracking('finJob')"  >Clock Out</button>
+          <button class="button btn-break" (click) ="pauseTracking('pause')">Take a Break</button>
         </div>
 
 
-        <div class="select-container" *ngIf="!trackingStarted" >
+      <!--  <div class="select-container" *ngIf="!trackingStarted" >
           <div class="select">
             <select>
               <option value="1">Début du travail</option>
             </select>
           </div>
-        </div>
+        </div>-->
 
         <div class="select-container"  *ngIf="trackingStarted">
 
@@ -34,7 +36,7 @@
   <div class="pointageList">
     <div class="pointageHeader">
       <p>today</p>
-      <p>Total time <span>1:24:48h</span></p>
+      <p>Total time <span>{{ calculateTotalWorkedTime() }}</span></p>
     </div>
 
 

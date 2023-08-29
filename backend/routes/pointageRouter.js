@@ -8,6 +8,8 @@ const authMiddleware = require('../middlewares/authMiddleware');
 router.post('/ajouter'  , pointageController.createPointage , authMiddleware);
 router.post('/modifier'  , pointageController.modifyPointage, authMiddleware);
 router.get('/lister'  , pointageController.listerPointage, authMiddleware);
+router.get('/listerFirstPointage'  , pointageController.listerFirstPointage, authMiddleware);
+
 
 
 

@@ -23,6 +23,10 @@ userId:{
     type:String,
     required: true
 },
+numFois:{
+    type:Number,
+    required:true
+}
 /*status:{
     type:Boolean,
     required:true , 
