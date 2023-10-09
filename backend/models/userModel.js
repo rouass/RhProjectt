@@ -20,10 +20,21 @@ const userSchema = new mongoose.Schema({
   notification:{
     type:Array,
   },
-  /*dateD:{
-    type:Date ,
-    required:true,
+ 
+  isActive: {
+    type: Boolean,
+    default: false, 
   },
+  tel: {
+    type: String,
+    required: true, 
+  },
+  dateD: {
+    type: Date,
+    required: true,  
+  },
+ /*  file:{String} ,
+  image:{String}, 
   dateF:{
     type:Date ,
     required:true,
