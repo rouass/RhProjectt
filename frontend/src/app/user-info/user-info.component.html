@@ -1,0 +1,62 @@
+<div class="containerr">
+
+<div class="containerr1">
+  <div class="container">
+    <div class="container1">
+      <mat-icon>touch_app</mat-icon> <h5>Veuillez pointer</h5>
+
+    </div>
+    <div class="container2">
+      <span >{{currentDateYear}}</span>
+      <p>{{ currentTime$ | async | date:'HH:mm:ss  '}} </p>
+
+      <button mat-raised-button color="warn" (click)="redirectToTimeTracking()"  >Click me</button>
+
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="container1">
+      <mat-icon>format_quote</mat-icon>
+      <h5>Upcoming Holidays</h5>
+
+    </div>
+
+      <div class="container22">
+          <li *ngFor="let holiday of holidays">
+            <div class="agenda">
+              <figure>
+                <header>{{ holiday.date | date:'MMM' }}</header>
+                <section> {{ holiday.date | date:'d' }}</section>
+              </figure>
+              <p >{{ holiday.name }}</p>
+            </div>
+          </li>
+      </div>
+
+  </div>
+
+  <div class="container" style="height: 530px; width: 320px;">
+</div>
+
+</div>
+
+<div class="containerr2">
+  <div class="container" style=" width: 726px; margin-top: -17rem; height: 257px;">
+    <div class="container1" style="justify-content: flex-start; padding-left: 6px;">
+      <mat-icon>schedule</mat-icon> <h5>Time Tracking</h5>
+    </div>
+
+    <igx-date-range-picker [(ngModel)]="range">
+      <label igxLabel>Flight dates</label>
+  </igx-date-range-picker>
+
+
+
+
+  </div>
+</div>
+</div>
+
+
+

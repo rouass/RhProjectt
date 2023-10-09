@@ -1,0 +1,41 @@
+  <div class="calendar">
+    <div class="calendar1">
+      <full-calendar [options]='calendarOptions()'></full-calendar>
+    </div>
+
+  <div class="calendar2">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">User ID</th>
+          <th scope="col">Total Time Worked</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="!selectedDate">
+          <tr *ngFor="let tracker of trackers; let i = index">
+            <td>{{ tracker.userId }}</td>
+            <td>{{ tracker.totalTimeWorking }}</td>
+            <td>{{ tracker.date }}</td>
+          </tr>
+        </ng-container>
+
+        <!-- Show this when selectedDate is not null -->
+        <ng-container *ngIf="selectedDate">
+          <tr *ngFor="let entry of userTotalTimeMap | keyvalue; let i = index">
+            <td>{{ entry.key }}</td>
+            <td>{{ entry.value }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+
+
+
+

@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="container2">
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Num tel</th>
+          <th>Date d'embauche</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let employee of employees">
+          <tr >
+            <td>{{ employee.name  }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.tel}}</td>
+            <td>{{ employee.dateD}}</td>
+            <td><button mat-icon-button >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button >
+              <mat-icon>delete</mat-icon>
+            </button> </td>
+          </tr>
+        </ng-container>
+
+      </tbody>
+
+    </table>
+
+  </div>
+</div>

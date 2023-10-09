@@ -1,0 +1,33 @@
+<form #congeForm="ngForm" (ngSubmit)="AddEmploye(congeForm)">
+  <div class="container1">
+    <div class="header">
+    <h2>Ajout d'employé</h2>
+    <button mat-icon-button (click)="closePopup()">  <mat-icon>close</mat-icon></button> </div>
+    <div class="checkLabel">
+      <label>Date de début</label>
+      <input type="date" name="dateD" [(ngModel)]="employe.dateD">
+    </div>
+    <div class="checkLabel">
+       <label for="name">Name:</label>
+       <input type="text" id="name" name="name" [(ngModel)]="employe.name" >
+      </div>
+    <div class="checkLabel">
+      <label>email</label>
+    <input type="text" id="email" name="email" [(ngModel)]="employe.email" >
+    </div>
+    <div class="checkLabel">
+      <label>tel</label>
+    <input type="text" id="tel" name="tel" [(ngModel)]="employe.tel" >
+    </div>
+    <div class="checkLabel">
+      <label>password</label>
+      <input type="password" name="password" [(ngModel)]="employe.password">
+    </div>
+
+
+    <div class="checkLabel">
+      <button  mat-raised-button color="primary"  style="width: 60%; margin: auto;" >Ajouter</button>
+    </div>
+
+  </div>
+</form>

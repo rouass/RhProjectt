@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { CongeCreateComponent } from '../conge-create/conge-create.component';
+import { EmployeeCreateComponent } from 'src/app/employees/employe-create/employee-create.component';
 @Component({
   selector: 'app-nav-conge',
   templateUrl: './nav-conge.component.html',
@@ -11,6 +12,7 @@ import { CongeCreateComponent } from '../conge-create/conge-create.component';
 export class NavCongeComponent {
   constructor(private dialog: MatDialog , private router: Router) { }
   isAdmin: boolean = false;
+  currentPath = this.router.url;
 
   ngOnInit() {
     this.isAdmin = localStorage.getItem('isAdmin') === 'true';
@@ -18,25 +20,38 @@ export class NavCongeComponent {
 
 
   getCurrentPageText(): string {
-    const currentPath = this.router.url;
-    if (currentPath === '/congeeDetails') {
-      return 'Liste des congés';
-    } else if (currentPath === '/notification') {
-      return 'Liste de notifications';
-    } else {
+    if (this.currentPath === '/congeeDetails') {
+      return 'Liste des Congés';
+    } else if (this.currentPath === '/notification') {
+      return 'Liste de Notifications';
+    }  else if (this.currentPath === '/calendar') {
+      return 'Liste des Pointages';
+    }
+    else if (this.currentPath === '/pointage') {
+      return 'Pointage';
+    }
+    else if (this.currentPath === '/employee') {
+      return 'Liste des Employées';
+    }else {
       return 'Default Text';
     }
   }
 
   openCreateCongeDialog(): void {
+    if (this.currentPath === '/congeeDetails') {
     const dialogRef = this.dialog.open(CongeCreateComponent, {
       width: '500px',
       disableClose: true,
       data: {}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+  } else {
+    const dialogRef = this.dialog.open(EmployeeCreateComponent, {
+      width: '500px',
+      disableClose: true,
+      data: {}
     });
   }
+    };
+  }
 
-}

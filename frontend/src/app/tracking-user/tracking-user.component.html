@@ -12,6 +12,7 @@
         <button *ngIf="!getTrackingStartedFromLocalStorage()" class="button"  (click)="startTracking()" >Start</button>
 
       <div *ngIf="getTrackingStartedFromLocalStorage()" >
+        <button  class="button"  (click)="startTracking()" >Start</button>
           <button class="button btn-clock"   (click) ="pauseTracking('finJob')"  >Clock Out</button>
           <button class="button btn-break" (click) ="pauseTracking('pause')">Take a Break</button>
         </div>

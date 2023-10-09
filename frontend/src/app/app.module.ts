@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { CongeCreateComponent } from './conge/conge-create/conge-create.component';
 import { CongeListComponent } from './conge/conge-list/conge-list.component';
 import { NavHeaderComponent } from './nav-header/nav-header.component';
-import { SideNavbarComponent } from './side-navbar/side-navbar.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { dataSharingService } from './dataSharing.service';
@@ -44,12 +43,19 @@ import { NotificationComponent } from './notification/notification.component';
 import { LoginLayoutComponent } from './login-layout/login-layout.component';
 import { ExplanationDialogComponent } from './explanation-dialog/explanation-dialog.component';
 import { TrackingUserComponent } from './tracking-user/tracking-user.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-
+import {IgxDateRangePickerModule,	IgxInputGroupModule} from "igniteui-angular";
+import { IgxGridModule } from 'igniteui-angular';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DatePipe } from '@angular/common';
-import { BrrtimeComponent } from './brrtime/brrtime.component';
 import { FormatTimePipe } from './format-time.pipe';
-
+import { CalendarComponent } from './calendar/calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import { EmployeListComponent } from './employees/employe-list/employe-list.component';
+import { EmployeeCreateComponent } from './employees/employe-create/employee-create.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +63,6 @@ import { FormatTimePipe } from './format-time.pipe';
     CongeListComponent,
     NavHeaderComponent,
     SideNavComponent ,
-    SideNavbarComponent,
     CongeUserComponent,
     LoginComponent,
     LoginnComponent,
@@ -68,9 +73,13 @@ import { FormatTimePipe } from './format-time.pipe';
     LoginLayoutComponent,
     ExplanationDialogComponent,
     TrackingUserComponent,
-    BrrtimeComponent,
-    FormatTimePipe
-  ],
+    FormatTimePipe,
+    CalendarComponent,
+    EmployeListComponent,
+    EmployeeCreateComponent,
+    UserInfoComponent
+
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -95,6 +104,13 @@ import { FormatTimePipe } from './format-time.pipe';
     MatSelectModule,
     MatFormFieldModule,
     MatPaginatorModule,
+    FullCalendarModule,
+    MatDatepickerModule,
+    NgbModule ,
+    IgxGridModule,
+    IgxDateRangePickerModule,
+	IgxInputGroupModule
+
   ],
   providers: [AuthGuard, dataSharingService , DatePipe],
   bootstrap: [AppComponent]

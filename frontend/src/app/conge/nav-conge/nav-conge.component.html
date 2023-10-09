@@ -2,15 +2,21 @@
   <div class="container1">
     <span>{{ getCurrentPageText() }}</span>
   </div>
-<div class="container3" *ngIf="getCurrentPageText() !== 'Liste des congés'" style="margin: 14px;">
+<div class="container3" *ngIf="getCurrentPageText() !== 'Liste des Congés'" style="margin: 14px;">
 </div>
 <div class="container3" *ngIf="isAdmin" style="margin: 14px;">
 </div>
-<div class="container2" *ngIf="getCurrentPageText() === 'Liste des congés'">
+<div class="container2" *ngIf="getCurrentPageText() === 'Liste des Congés'">
   <button (click)="openCreateCongeDialog()" *ngIf="!isAdmin">
         <mat-icon>add</mat-icon>
         Nouveau Congé
   </button>
   </div>
+  <div class="container2" *ngIf="getCurrentPageText() === 'Liste des Employées' && isAdmin">
+    <button (click)="openCreateCongeDialog()" >
+          <mat-icon>add</mat-icon>
+          Nouveau Employée
+    </button>
+    </div>
 </div>
 

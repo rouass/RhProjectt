@@ -5,4 +5,5 @@ export class Pointage {
   heureFP!: String ;
   date : Date = new Date();
   status : string ='';
+  userId: string ='';
 }

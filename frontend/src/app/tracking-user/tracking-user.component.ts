@@ -5,7 +5,6 @@ import axios from 'axios';
 import { Observable, interval } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
-import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-tracking-user',
@@ -17,7 +16,7 @@ export class TrackingUserComponent implements OnInit {
 
 
   storedNumFois!: number;
-numFois: number = 0;
+  numFois: number = 0;
   currentTime$: Observable<Date> = interval(1000).pipe(
     map(() => new Date())
   );
@@ -116,6 +115,7 @@ addLeadingZero(value: number): string {
 
     const pointageObjPause = {
       heureFP: `${this.addLeadingZero(hours)}:${this.addLeadingZero(minutes)}:${this.addLeadingZero(seconds)}`,
+      totalTimeWorking :this.calculateTotalWorkedTime() ,
     };
 
     this.http.post('http://127.0.0.1:8000/pointage/modifier', pointageObjPause, { headers })
@@ -126,6 +126,14 @@ addLeadingZero(value: number): string {
         console.log("starts tracking: " + this.trackingStarted);
         if(status==='finJob'){
           localStorage.setItem('numFois','-1');
+          console.log(typeof(this.calculateTotalWorkedTime()));
+          this.http.post('http://127.0.0.1:8000/timeTracker/ajouterTimeTracker', pointageObjPause, { headers })
+          .subscribe(
+            (response: any)=>{
+              console.log('time tracker created');
+
+            }
+          )
         }
 
         console.log(response);
@@ -133,7 +141,6 @@ addLeadingZero(value: number): string {
       },
       (error: any) => {
         console.log('Error making HTTP request:', error);
-
       }
     );
 } catch (error) {
